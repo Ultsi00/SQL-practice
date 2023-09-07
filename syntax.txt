@@ -1,0 +1,86 @@
+https://www.sql-practice.com/
+[ctrl + enter]: Execute the SQL
+[ctrl + q]: Auto-format the SQL
+
+******************************
+SELECT
+******************************
+Here, column1, column2, ... are the field names of the table you want to select data from. 
+
+    SELECT column1, column2, ...
+        FROM tablename;
+
+If you want to select all the fields available in the table, use the following syntax:
+
+    SELECT * FROM tablename;
+
+SELECT Column Example:
+The following SQL statement selects the "first_name" and "last_name" columns from the 
+"patients" table:
+
+    SELECT first_name, last_name FROM patients;
+
+SELECT * Example:
+The following SQL statement selects all the columns from the "patients" table:
+
+    SELECT * FROM patients;
+
+******************************
+UPDATE
+******************************
+UPDATE tablename
+    SET column1 = value1, column2 = value2, ...
+    WHERE condition;
+Note: Be sure to specify the where clause. Failing to include the where 
+clause will result in all of the rows to be updated!
+
+The following SQL statement updates the first patient (patient_id = 1) with a new first_name and a new weight.
+
+    UPDATE patients
+    SET
+    first_name = 'John',
+    weight = 120
+    WHERE patient_id = 1;
+    ​
+The following SQL statement will update the allergies to 'NKA' (no known allergies) for all records where allergies is NULL
+    UPDATE patients
+    SET allergies = 'NKA'
+    WHERE allergies is NULL;
+
+******************************
+CONCATINATE
+******************************
+CONCAT(expression1, expression2, expression3,...)
+
+The following SQL statement concats the first_name and last_name of each patient together:
+
+    SELECT CONCAT(first_name,' ', last_name) AS full_name
+    FROM patients;
+
+******************************
+JOIN
+******************************
+    SELECT column_name(s)
+        FROM table1
+        JOIN table2
+        ON table1.column_name = table2.column_name;
+
+For example, table1 = ['id' : '1', 'name' : 'mark], table2 = ['id' : '1', 'trade' : 'carpenter]
+    SELECT name, trade
+    FROM table1
+    JOIN table2
+    ON table1.id = table2.id;
+
+>>  mark    |   carpenter
+
+******************************
+COUNT
+******************************
+    SELECT COUNT(column_name)
+        FROM table_name
+        WHERE condition;
+        
+The following SQL statement finds the number of patients that weight over 120Kg:
+
+    SELECT COUNT(*) FROM patients 
+    WHERE weight > 120;
