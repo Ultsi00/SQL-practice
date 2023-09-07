@@ -13,64 +13,63 @@ weight	            INT
 *****
 Q: Show first name, last name, and gender of patients whose gender is 'M'
 
-SELECT first_name, last_name, gender 
-	FROM patients
-    WHERE gender = 'M';
+   SELECT first_name, last_name, gender 
+   	FROM patients
+       WHERE gender = 'M';
 
 *****
 Q:Show first name and last name of patients who does not have allergies. (null)
 
-SELECT first_name, last_name
-	FROM patients
-    WHERE allergies is NULL;
+    SELECT first_name, last_name
+    	FROM patients
+        WHERE allergies is NULL;
 
 *****
 Q: Show first name of patients that start with the letter 'C'
 #FROM = all columns
 #'c%' = first char of variable first_name, which would be 'c'
 
-SELECT first_name
-	FROM patients
-	WHERE first_name LIKE 'C%';
+    SELECT first_name
+    	FROM patients
+    	WHERE first_name LIKE 'C%';
 
 *****
 Q: Show first name and last name of patients that weight within the range of 100 to 120 (inclusive)
 
-SELECT first_name, last_name
-	FROM patients
-    WHERE weight BETWEEN 100 and 120;
+    SELECT first_name, last_name
+    	FROM patients
+        WHERE weight BETWEEN 100 and 120;
 
 *****
 Q: Update the patients table for the allergies column. If the patient's allergies 
 is null then replace it with 'NKA'\
 
-UPDATE patients
-SET
-	allergies = 'NKA'
-WHERE allergies IS null;
+    UPDATE patients
+    SET allergies = 'NKA'
+    WHERE allergies IS null;
 
 *****
 Q: Show first name and last name concatinated into one column to show their full name.
 
-SELECT CONCAT(first_name, ' ', last_name) AS full_name
-	FROM patients;
+    SELECT CONCAT(first_name, ' ', last_name) AS full_name
+    	FROM patients;
 
 *****
 Q: Show first name, last name, and the full province name of each patient.
 
     SELECT first_name, last_name, province_name
-    FROM patients
-    JOIN province_names
-    ON province_names.province_id = patients.province_id;
+        FROM patients
+        JOIN province_names
+        ON province_names.province_id = patients.province_id;
 
 *****
 Q: Show how many patients have a birth_date with 2010 as the birth year.
 #YEAR() parses the year of a date
 #COUNT() can often be used with '*'
 
-SELECT COUNT(*)
-	FROM patients
-    WHERE YEAR(birth_date) = 2010;
+    SELECT COUNT(*)
+    	FROM patients
+        WHERE YEAR(birth_date) = 2010;
 
 *****
 Q: Show the first_name, last_name, and height of the patient with the greatest height.
