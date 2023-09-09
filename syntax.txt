@@ -28,9 +28,9 @@ The following SQL statement selects all the columns from the "patients" table:
 ******************************
 UPDATE
 ******************************
-UPDATE tablename
-    SET column1 = value1, column2 = value2, ...
-    WHERE condition;
+    UPDATE tablename
+        SET column1 = value1, column2 = value2, ...
+        WHERE condition;
 Note: Be sure to specify the where clause. Failing to include the where 
 clause will result in all of the rows to be updated!
 
@@ -61,9 +61,9 @@ The following SQL statement concats the first_name and last_name of each patient
 JOIN
 ******************************
     SELECT column_name(s)
-        FROM table1
-        JOIN table2
-        ON table1.column_name = table2.column_name;
+    FROM table1
+    JOIN table2
+    ON table1.column_name = table2.column_name;
 
 For example, table1 = ['id' : '1', 'name' : 'mark], table2 = ['id' : '1', 'trade' : 'carpenter]
     SELECT name, trade
@@ -83,4 +83,57 @@ COUNT
 The following SQL statement finds the number of patients that weight over 120Kg:
 
     SELECT COUNT(*) FROM patients 
-    WHERE weight > 120;
+        WHERE weight > 120;
+
+******************************
+DISTINCT
+******************************
+The SELECT DISTINCT statement is used to return only distinct (different) values.
+Inside a table, a column often contains many duplicate values; and sometimes you only want to list the different (distinct) values.
+
+    SELECT DISTINCT column1, column2, ...
+        FROM table_name;
+
+To count distinct variable values:
+    SELECT COUNT(DISTINCT first_name) 
+        FROM patients;
+
+******************************
+ORDER BY
+******************************
+The ORDER BY keyword sorts the records in ascending order by default. To sort the records in descending order, use the DESC keyword.
+
+    SELECT column1, column2, ...
+        FROM table_name
+        ORDER BY column1, column2, ... ASC|DESC;
+
+The following SQL statement selects all patients from the "patients" table, 
+sorted ascending by the "first_name" and descending by the "last_name" column:
+
+    SELECT * FROM patients
+        ORDER BY first_name ASC, last_name DESC;
+
+******************************
+GROUP BY
+******************************
+The GROUP BY statement groups rows that have the same values into summary rows, 
+The statement is often used with aggregate functions (COUNT(), MAX(), MIN(), SUM(), AVG()),
+to group the result-set by one or more columns.
+
+    SELECT column_name(s)
+        FROM table_name
+        WHERE condition
+        GROUP BY column_name(s)
+
+******************************
+HAVING
+******************************
+The HAVING clause was added to SQL because the WHERE keyword cannot be used with aggregate functions.
+HAVING requires GROUP BY.
+The following SQL statement lists the names of patients with a common first_name (> 30 occurances):
+
+    SELECT COUNT(*), first_name
+        FROM patients
+        GROUP BY first_name
+        HAVING COUNT(*) > 30;
+
