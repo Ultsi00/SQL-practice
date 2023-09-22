@@ -1,2 +1,2 @@
 # SQL-practice
-practice of SQL syntax via sql-practice.com
+practice of SQL queries via sql-practice.com
