@@ -1,6 +1,45 @@
 https://www.sql-practice.com/
-[ctrl + enter]: Execute the SQL
-[ctrl + q]: Auto-format the SQL
+
+******************************
+WHERE
+******************************
+=condition
+
+!! cannot be used with any aggregate functions (sum, count, min, max, avg)
+on same line.
+
+!! order:
+    SELECT
+    FROM 
+    WHERE 
+    GROUP 
+    HAVING
+
+******************************
+IN / NOT IN (!! in WHERE clause)
+******************************
+The IN operator allows you to specify multiple values in a WHERE clause.
+The IN operator is a shorthand for multiple OR conditions.
+Note: NOT IN excludes the values 
+
+    SELECT column_name(s)
+    FROM table_name
+    WHERE column_name IN (value1, value2, ...);
+
+    or
+
+    SELECT column_name(s)
+    FROM table_name
+    WHERE column_name IN (SELECT STATEMENT);
+
+Example: select all patients, whose province_id is either "SK", "AB" or "MB":
+    SELECT * FROM patients
+    WHERE province_id IN ('SK', 'AB', 'MB');
+
+Example: select all patients, who have the same first_name as a doctor.
+
+    SELECT * FROM patients 
+    WHERE first_name in (SELECT first_name FROM doctors)
 
 ******************************
 SELECT
@@ -31,6 +70,7 @@ UPDATE
     UPDATE tablename
         SET column1 = value1, column2 = value2, ...
         WHERE condition;
+
 Note: Be sure to specify the where clause. Failing to include the where 
 clause will result in all of the rows to be updated!
 
@@ -48,7 +88,7 @@ The following SQL statement will update the allergies to 'NKA' (no known allergi
     WHERE allergies is NULL;
 
 ******************************
-CONCATINATE
+CONCATENATE
 ******************************
 CONCAT(expression1, expression2, expression3,...)
 
@@ -128,8 +168,9 @@ to group the result-set by one or more columns.
 ******************************
 HAVING
 ******************************
+!! HAVING requires GROUP BY.
+
 The HAVING clause was added to SQL because the WHERE keyword cannot be used with aggregate functions.
-HAVING requires GROUP BY.
 The following SQL statement lists the names of patients with a common first_name (> 30 occurances):
 
     SELECT COUNT(*), first_name
@@ -137,3 +178,44 @@ The following SQL statement lists the names of patients with a common first_name
         GROUP BY first_name
         HAVING COUNT(*) > 30;
 
+******************************
+UNION
+******************************
+The UNION operator is used to combine the result-set of two or more SELECT statements.
+
+- Every SELECT statement within UNION must have the same number of columns
+
+- The columns must also have similar data types
+
+- The columns in every SELECT statement must also be in the same order
+
+UNION Syntax
+SELECT column_name(s) FROM table1
+    UNION
+SELECT column_name(s) FROM table2;
+UNION ALL Syntax
+The UNION operator selects only distinct values by default. To allow duplicate values, use UNION ALL:
+
+SELECT column_name(s) FROM table1
+    UNION ALL
+SELECT column_name(s) FROM table2;
+Note: The column names in the result-set are usually equal to the column names in the first SELECT statement.
+
+******************************
+LIKE
+******************************
+
+    SELECT column1, column2, ...
+    FROM table_name
+    WHERE column LIKE pattern;
+
+                Pattern:    Output:
+    ... LIKE    'a%'	    values, which start with "a"
+    ... LIKE    '%a'	    values, which end in "a"
+    ... LIKE    '%xyz%'	    values, which have "xzy" in any position
+    ... LIKE    '_r%'	    values, which have "r" in the second position
+    ... LIKE    'a_%'	    values, which start with "a" and are at least 2 characters in length
+
+******************************
+
+******************************
